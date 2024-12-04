@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Пример использования
 logging.info('Бот запущен')
 
-API = '7991163460:AAGK-HM5MXPowZNKSHAINi7SfoCEehJiMPM'
+API = ''
 
 bot = Bot(token=API)
 storage = MemoryStorage()
