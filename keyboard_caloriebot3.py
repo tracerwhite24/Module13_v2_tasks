@@ -4,7 +4,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.utils import executor
 
-API = '7991163460:AAGK-HM5MXPowZNKSHAINi7SfoCEehJiMPM'
+API = ''
 
 bot = Bot(token=API)
 storage = MemoryStorage()
