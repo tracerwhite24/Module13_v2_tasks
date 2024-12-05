@@ -20,18 +20,25 @@ class UserState(StatesGroup):
     weight = State()
 
 # Создание Inline-клавиатуры с двумя кнопками
-button1 = InlineKeyboardButton(text="Рассчитать", callback_data="calculate")
-button2 = InlineKeyboardButton(text="Информация", callback_data="info")
-inline_kb = InlineKeyboardMarkup().add(button1, button2)
 
-@dp.message_handler(commands=["start"])
-async def start(message: types.Message):
-    await message.answer("Привет! Я бот, помогающий твоему здоровью. Выберите опцию:", reply_markup=inline_kb)
+inline_kb = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton('Рассчитать', callback_data='calculate'),
+            InlineKeyboardButton('Информация', callback_data='info')
+        ]
+    ]
+)
 
-@dp.callback_query_handler(lambda c: c.data == "calculate")
-async def set_age(callback_query: types.CallbackQuery):
+@dp.message_handler(commands=['start'])
+async def start(message):
+    await message.answer('Привет! Я бот помогающий твоему здоровью.', reply_markup=inline_kb)
+
+@dp.callback_query_handler(text="calories")
+async def set_age(call):
+    await call.message.answer("Введите свой возраст:")
+    await call.answer()
     await UserState.age.set()
-    await bot.send_message(callback_query.from_user.id, "Введите свой возраст:")
 
 @dp.callback_query_handler(lambda c: c.data == "info")
 async def info_command(callback_query: types.CallbackQuery):
@@ -86,4 +93,14 @@ async def all_messages(message: types.Message):
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
+
+
+
+
+
+
+
+
+
+
 
